@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrance</title>
+</head>
+
+<body>
+  <form id='message-form'>
+    <input class="name" name='name' type="text" placeholder="Enter name" autofocus autocomplete="off" />
+    <button type="submit">Enter</button>
+  </form>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+    var socket = io();
+    socket.on('connect', function () {
+      console.log('Connected to Server, now registering...');
+    })
+
+    document.getElementById('message-form').addEventListener('submit', function handleSubmit(e) {
+      e.preventDefault();
+      let uName = document.querySelector('input[name=name]').value;
+
+      socket.emit("register", { userName: uName }, function (response) {
+        if( response.success ) {
+          console.log(response.success);
+          localStorage.setItem('userId', response.userId);
+          localStorage.setItem('userName', uName);
+          window.location.href = "/.netlify/functions/gameBoard";
+        } else {
+          alert(response.message);
+        }
+      });
+    })
+  </script>
+</body>
+
+</html>
