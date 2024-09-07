@@ -29,7 +29,7 @@
           console.log(response.success);
           localStorage.setItem('userId', response.userId);
           localStorage.setItem('userName', uName);
-          window.location.href = "/.netlify/functions/gameBoard";
+          window.location.href = "/gameBoard";
         } else {
           alert(response.message);
         }
