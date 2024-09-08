@@ -5,12 +5,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entrance</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html,
+    body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Center the content */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Container for the form */
+    /* .form-container {
+      text-align: center;
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    } */
+
+    #message-form {
+      text-align: center;
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    /* Form input style */
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Button style */
+    button {
+      width: 80%;
+      padding: 10px;
+      background-color: #fafafa;
+      color: rgb(0, 0, 0);
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    /* Hover effect for button */
+    button:hover {
+      background-color: #060606;
+      color: rgb(255, 255, 255);
+    }
+  </style>
 </head>
 
 <body>
   <form id='message-form'>
+    <h1>Play Tic Tac Toe</h1>
     <input class="name" name='name' type="text" placeholder="Enter name" autofocus autocomplete="off" />
-    <button type="submit">Enter</button>
+    <button type="submit">Play with stranger</button>
   </form>
   <script src="/socket.io/socket.io.js"></script>
 
@@ -25,7 +96,7 @@
       let uName = document.querySelector('input[name=name]').value;
 
       socket.emit("register", { userName: uName }, function (response) {
-        if( response.success ) {
+        if (response.success) {
           console.log(response.success);
           localStorage.setItem('userId', response.userId);
           localStorage.setItem('userName', uName);

@@ -39,12 +39,13 @@
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 100px 100px 100px;
     gap: 5px;
+    /* background-color: #827d7d; */
   }
 
   .gameBoard .move {
     font-size: 2rem;
     cursor: pointer;
-    border: 2px solid white;
+    /* border: 1px solid white; */
     background-color: #333;
     color: white;
     display: flex;
@@ -102,6 +103,20 @@
   .gameover-overlay button:active {
     background-color: #ffffff;
   }
+
+  .user-display {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.2rem;
+    color: black;
+    background-color: white;
+    padding: 5px 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: left;
+  }
 </style>
 
 <body>
@@ -109,6 +124,7 @@
     <h1 id="status"></h1>
     <button onclick="restartGame()">Restart</button>
   </div>
+  <div class="user-display" id="userDisplay"></div>
 
   <section class="boardSection">
     <div class="gameBoard" id="gameBoard" onclick="submitMove(event.target.id)">
@@ -133,6 +149,7 @@
   console.log("user registered to room");
   const userId = localStorage.getItem('userId');
   uName = localStorage.getItem('userName');
+  document.getElementById('userDisplay').innerText = `Name: ${uName}`;
 
 
 
@@ -199,7 +216,7 @@
       button.innerText = "";
     });
     document.getElementById("gameBoard").classList.remove('disabled');
-    
+
   })
 </script>
 
