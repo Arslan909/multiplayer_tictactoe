@@ -156,8 +156,31 @@ io.on('connection', (socket) => {
     }
   })
 
+  socket.on('disconnectUserFromGame', (data) => {
+    let { userId } = data
 
-  // when server disconnects from user
+    if (userId) {
+      const gameId = userGame[userId];
+      const game = games.find(game => game.gameId === gameId);
+
+      if (game) {
+        game.connectedUsers = game.connectedUsers.filter(user => user.userId !== userId);
+        game.gameBoard = new Array(9).fill(null);
+        game.playerTurn = "X";
+        game.userTurn = null;
+        socket.leave(gameId);
+        io.to(gameId).emit("opponentLeft");
+
+        if (game.connectedUsers.length === 0) {
+          games = games.filter(g => g.gameId !== gameId);
+        }
+
+        delete userGame[userId];
+      }
+    }
+  })
+
+  // when server disconnects from user (this is for testing purposes)
   socket.on('disconnect', () => {
     console.log("disconnected from user");
   })

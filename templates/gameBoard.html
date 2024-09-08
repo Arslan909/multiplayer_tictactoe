@@ -188,9 +188,19 @@
 
 
   window.addEventListener('beforeunload', function () {
+    socket.emit("disconnectUserFromGame", { "userId": userId })
     localStorage.removeItem('userId');
     // window.location.href = "/";
   });
+
+  socket.on("opponentLeft", function () {
+    window.alert("Opponent left the game TT");
+    document.querySelectorAll('.move').forEach(button => {
+      button.innerText = "";
+    });
+    document.getElementById("gameBoard").classList.remove('disabled');
+    
+  })
 </script>
 
 </html>
